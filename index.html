@@ -92,47 +92,7 @@
         <h2 id="rsvpTitle">RSVP 回覆</h2>
         <p>煩請於 <strong>2025/12/15</strong> 前回覆，讓我們好安排座位與餐點。</p>
 
-        <!-- 方案 A：Netlify 表單（部署到 Netlify 會自動收信） -->
-        <form name="rsvp" method="POST" data-netlify="true" class="form card" aria-describedby="privacyNote">
-          <input type="hidden" name="form-name" value="rsvp" />
-          <div class="field">
-            <label for="name">您的姓名</label>
-            <input id="name" name="name" required autocomplete="name" />
-          </div>
-          <div class="field">
-            <label for="phone">聯絡電話</label>
-            <input id="phone" name="phone" type="tel" required autocomplete="tel" />
-          </div>
-          <div class="field">
-            <label for="attend">是否出席</label>
-            <select id="attend" name="attend" required>
-              <option value="">請選擇</option>
-              <option>出席</option>
-              <option>不克出席</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="guests">隨行人數</label>
-            <input id="guests" name="guests" type="number" min="0" value="0" />
-          </div>
-          <div class="field">
-            <label for="meal">餐點需求</label>
-            <select id="meal" name="meal">
-              <option>一般</option>
-              <option>素食</option>
-              <option>不吃牛</option>
-              <option>不吃豬</option>
-              <option>其他（下方備註）</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="note">備註</label>
-            <textarea id="note" name="note" rows="3" placeholder="過敏食材、座位需求等"></textarea>
-          </div>
-          <button class="btn primary" type="submit">送出回覆</button>
-          <p id="privacyNote" class="form__note">資料僅用於婚禮聯繫與座位安排。</p>
-        </form>
-
+	<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScWCIwZW7IWYH_JNmB_xrjLhef8xCqFZXv-QHmnH0jAgdablw/viewform?embedded=true" width="640" height="1512" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe>
         <!-- 方案 B：若不用 Netlify，可把按鈕改連到 Google 表單 -->
         <p class="alt-form-tip">
           不用 Netlify？可以改成
