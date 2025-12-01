@@ -373,6 +373,7 @@
   </div>
 
   <audio id="bg-music" loop>
+    <!-- 請確認您的音樂路徑是否正確 -->
     <source src="assets/Jake Miller - Lucky Me (The proposal).mp3" type="audio/mp3">
   </audio>
 
@@ -622,33 +623,55 @@
       }
     }
 
-    // Auto Scroll
+    // Auto Scroll with Accumulator for Mobile
     let isAutoScrolling = false;
     let scrollFrameId;
+    let scrollAccumulator = 0; // 新增：像素累積器
+
     function autoScrollLoop() {
       if (!isAutoScrolling) return;
-      window.scrollBy(0, 0.5);
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 5) {
-        stopAutoScroll(); return;
+      
+      // 手機版像素密度高，0.5px 有時會被忽略，改成累積制
+      // 每次 loop 增加 0.6 單位
+      scrollAccumulator += 0.6; 
+      
+      // 當累積超過 1 時，實際捲動 1px，並扣除
+      if (scrollAccumulator >= 1) {
+          window.scrollBy(0, 1);
+          scrollAccumulator -= 1;
       }
+      
+      // 邊界檢查：如果滑到底了就停止
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 5) {
+        stopAutoScroll(); 
+        return;
+      }
+      
       scrollFrameId = requestAnimationFrame(autoScrollLoop);
     }
+
     function startAutoScroll() {
       if (isAutoScrolling) return;
       isAutoScrolling = true;
       scrollBtn.classList.add('active');
       autoScrollLoop();
     }
+
     function stopAutoScroll() {
       isAutoScrolling = false;
       cancelAnimationFrame(scrollFrameId);
       scrollBtn.classList.remove('active');
     }
+
     function toggleAutoScrollManually() {
       if (isAutoScrolling) stopAutoScroll(); else startAutoScroll();
     }
-    ['wheel', 'touchstart', 'mousedown'].forEach(evt => {
-      window.addEventListener(evt, () => { if(isAutoScrolling) stopAutoScroll(); });
+
+    // [修正] 改為監聽 touchmove (手指滑動) 才停止，避免 touchstart (手指觸碰) 誤判
+    ['wheel', 'touchmove', 'mousedown'].forEach(evt => {
+      window.addEventListener(evt, () => { 
+        if(isAutoScrolling) stopAutoScroll(); 
+      });
     });
 
     // Fade Up
