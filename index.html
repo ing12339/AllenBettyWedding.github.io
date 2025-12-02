@@ -212,11 +212,36 @@
     .countdown-divider { width: 60px; height: 1px; background: var(--red-accent); margin: 30px 0; }
     @media(max-width: 900px) { .countdown-divider { margin: 30px auto; } }
 
-    .countdown-wrap { display: flex; gap: 30px; }
+    .countdown-wrap { display: flex; gap: 30px; margin-bottom: 20px; }
     @media(max-width: 900px) { .countdown-wrap { justify-content: center; } }
     .cd-item { text-align: center; font-family: var(--font-en); }
     .cd-number { font-size: 2.5rem; line-height: 1; color: #333; font-weight: 500; }
     .cd-label { font-size: 0.7rem; letter-spacing: 2px; color: #999; text-transform: uppercase; margin-top: 5px; }
+
+    /* [NEW] Add to Calendar Button Style */
+    .calendar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background-color: transparent;
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+      font-family: var(--font-en);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 15px;
+    }
+    .calendar-btn:hover {
+      background-color: var(--accent-color);
+      color: #fff;
+    }
+    .calendar-btn svg { width: 16px; height: 16px; }
 
     /* === 4. Story Section === */
     .story-section { padding: 80px 0; }
@@ -281,7 +306,7 @@
     .details-section { text-align: center; padding: 100px 0; background: #faf9f6; }
     .double-happiness { font-size: 4rem; color: var(--red-accent); font-weight: bold; margin-bottom: 20px; font-family: "Microsoft JhengHei", sans-serif; }
     .date-large { font-size: 1.5rem; letter-spacing: 2px; margin-bottom: 10px; }
-    .lunar-date { font-size: 1rem; color: #666; margin-bottom: 40px; }
+    .lunar-date { font-size: 1rem; color: #666; margin-bottom: 10px; } /* 減少底部 margin */
 
     .calendar-wrapper { max-width: 450px; margin: 0 auto; border-top: 1px solid #ddd; padding-top: 30px; margin-bottom: 60px; }
     .cal-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 20px; justify-content: center;}
@@ -418,6 +443,10 @@
           <div class="cd-item"><div class="cd-number">:</div></div>
           <div class="cd-item"><div class="cd-number" id="cd-secs">0</div><div class="cd-label">SECS</div></div>
         </div>
+        
+        <!-- [Added here per your previous prompt, though requested to be near date details] 
+             I'll remove it from here if you only want it in the details section. 
+             For now, I'll put it in the details section as per your latest request. -->
       </div>
       <div class="intro-img-wrap">
         <img src="assets/img/IMG_9073.JPG" alt="Wedding Couple">
@@ -508,6 +537,15 @@
     <div class="double-happiness">囍</div>
     <div class="date-large">2026 年 5 月 24 日 星期日</div>
     <div class="lunar-date">農曆四月初八</div>
+    
+    <!-- [NEW] 加入行事曆按鈕 (Placed Here) -->
+    <div style="margin-top: 15px; margin-bottom: 25px;">
+        <a class="calendar-btn" onclick="downloadICS()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          加入行事曆
+        </a>
+    </div>
+
     <hr style="width: 50px; border: 1px solid var(--accent-color); margin: 30px auto;">
 
     <div class="calendar-wrapper">
@@ -683,6 +721,30 @@
       });
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // [NEW] Download ICS Function
+    function downloadICS() {
+      const event = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'BEGIN:VEVENT',
+        'SUMMARY:Allen & Betty Wedding',
+        'DTSTART:20260524T120000', // 2026/05/24 12:00
+        'DTEND:20260524T150000',   // 結束時間
+        'LOCATION:台北新板希爾頓酒店',
+        'DESCRIPTION:誠摯邀請您參加 Allen & Betty 的婚禮。',
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\n');
+
+      const blob = new Blob([event], { type: 'text/calendar;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'wedding-invite.ics';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   </script>
 </body>
 </html>
