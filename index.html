@@ -180,7 +180,7 @@
     }
     .hero-bg {
       position: absolute; inset: 0;
-      background-image: url('assets/img/IMG_9073.JPG');
+      background-image: url('assets/img/DSC_1780.JPG');
       background-size: cover; background-position: center;
       filter: brightness(0.6); transform: scale(1.1); transition: transform 10s ease; z-index: 0;
     }
@@ -357,12 +357,23 @@
     .transport-list strong { color: #333; font-weight: 700; margin-right: 5px; }
 
     .map-wrap { 
-      width: 100%; height: 450px; background: #eee; 
-      filter: grayscale(0%); box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      border-radius: 4px; overflow: hidden;
+      width: 100%;
+      max-width: 900px;     /* ✅ 左右縮小的關鍵 */
+      margin: 0 auto;       /* ✅ 水平置中 */
+      height: 500px;
+      background: #eee; 
+      filter: grayscale(0%); 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      border-radius: 4px; 
+      overflow: hidden;
+    }
+    @media(max-width: 768px) {
+      .map-wrap {
+        max-width: 100%;
+        height: 260px;
+      }
     }
     .map-wrap iframe { width: 100%; height: 100%; border: 0; }
-    .form-container iframe { width: 100%; display: block; border:0; }
 
     /* === 控制項 === */
     .controls { position: fixed; bottom: 30px; right: 30px; z-index: 100; display: flex; flex-direction: column; gap: 15px; align-items: center; }
@@ -413,7 +424,7 @@
   <header class="hero" id="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
-      <h1 class="hero-title">Allen & Betty</h1>
+      <h1 class="hero-title">崇華 & 舒婷</h1>
       <div class="hero-date-line">MAY 24, 2026</div>
     </div>
   </header>
@@ -449,7 +460,7 @@
              For now, I'll put it in the details section as per your latest request. -->
       </div>
       <div class="intro-img-wrap">
-        <img src="assets/img/IMG_9073.JPG" alt="Wedding Couple">
+        <img src="assets/img/DSC_1763.jpg" alt="Wedding Couple">
       </div>
     </div>
   </section>
@@ -458,7 +469,7 @@
   <section class="container story-section">
     <div class="story-row fade-up">
       <div class="story-img-col">
-        <img src="assets/img/IMG_9073.JPG" alt="Meeting">
+        <img src="assets/img/DSC_1680.JPG" alt="Meeting">
       </div>
       <div class="story-text-col">
         <h3>The Beginning</h3>
@@ -468,7 +479,7 @@
     </div>
     <div class="story-row reverse fade-up">
       <div class="story-img-col">
-        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80" alt="Proposal">
+        <img src="assets/img/DSC_1860.JPG" alt="YES">
       </div>
       <div class="story-text-col">
         <h3>The Yes</h3>
@@ -484,28 +495,31 @@
     <div class="timeline">
       <div class="timeline-item left">
         <div class="timeline-content">
-          <h4>2018</h4>
+          <h4>2017</h4>
           <h5>初次相遇</h5>
-          <p>在朋友的聚會上，命運讓我們相識。</p>
+          <p>在網球場上，命運讓我們相識。</p>
         </div>
       </div>
       <div class="timeline-item right">
         <div class="timeline-content">
-          <h4>2019</h4>
-          <h5>第一次旅行</h5>
-          <p>我們一起去了北海道，在雪地裡留下了足跡。</p>
+          <h4>2021、2024</h4>
+          <h5>跨越時差</h5>
+          <p>我們分隔在台灣與歐洲兩端，隔著半個地球，
+            時間與距離教會我們等待，<br>
+            也讓我們更確定彼此的存在。</p>
         </div>
       </div>
       <div class="timeline-item left">
         <div class="timeline-content">
-          <h4>2021</h4>
-          <h5>共同生活</h5>
-          <p>開始了柴米油鹽的日子，平淡卻幸福。</p>
+          <h4>2025</h4>
+          <h5>求婚</h5>
+          <p>我們一起去北海道，在富良野的花海裡，<br>
+            我們許下了一輩子的承諾。</p>
         </div>
       </div>
       <div class="timeline-item right">
         <div class="timeline-content">
-          <h4>2025</h4>
+          <h4>2026</h4>
           <h5>我們結婚了</h5>
           <p>感謝有你，讓我們成為彼此的唯一。</p>
         </div>
@@ -517,20 +531,64 @@
   <div class="parallax-quote fade-up">
     <div class="parallax-overlay"></div>
     <div class="quote-content">
-      <div class="quote-text">"Love is not just looking at each other, it's looking in the same direction."</div>
-      <div style="margin-top: 15px; font-size: 0.9rem; letter-spacing: 2px;">— ANTOINE DE SAINT-EXUPÉRY</div>
+      <div class="quote-text">“Love is not found in words, it’s found in the steps we take together.”</div>
     </div>
   </div>
 
-  <!-- Moments Gallery -->
-  <section class="container moments-section fade-up">
-    <div class="section-title-center">Moments</div>
-    <div class="moments-grid">
-      <div class="moment-item"><img src="assets/img/IMG_9073.JPG" alt="Moment 1"></div>
-      <div class="moment-item"><img src="assets/img/IMG_9073.JPG" alt="Moment 2"></div>
-      <div class="moment-item"><img src="assets/img/IMG_9073.JPG" alt="Moment 3"></div>
-    </div>
-  </section>
+    <!-- Moments Gallery -->
+    <section class="container moments-section fade-up">
+      <div class="section-title-center">Moments</div>
+  
+      <!-- 僅作用於 Moments，不影響其他區塊 -->
+      <style>
+        /* 桌機：兩張一排 */
+        .moments-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 24px;
+        }
+  
+        .moment-item {
+          overflow: hidden;
+          border-radius: 4px;
+        }
+  
+        /* 橫式照片友善比例 */
+        .moment-item img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          aspect-ratio: 3 / 2; /* 若想更寬可改成 16 / 9 */
+          transition: transform 0.8s ease;
+        }
+  
+        .moment-item:hover img {
+          transform: scale(1.08);
+        }
+  
+        /* 手機版：一張一排 */
+        @media (max-width: 768px) {
+          .moments-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      </style>
+  
+      <div class="moments-grid">
+        <div class="moment-item">
+          <img src="assets/img/DSC_1717.JPG" alt="Moment 1">
+        </div>
+        <div class="moment-item">
+          <img src="assets/img/DSC_1811.JPG" alt="Moment 2">
+        </div>
+        <div class="moment-item">
+          <img src="assets/img/DSC_1897.JPG" alt="Moment 3">
+        </div>
+        <div class="moment-item">
+          <img src="assets/img/DSC_1749.JPG" alt="Moment 4">
+        </div>
+      </div>
+    </section>  
 
   <!-- Details / Calendar -->
   <section class="container details-section fade-up">
@@ -573,27 +631,45 @@
   </section>
 
   <!-- Map -->
-  <section class="container map-section fade-up">
-    <div class="location-grid">
-      <div class="location-col">
-        <h3 class="loc-title"><span style="color:var(--red-accent); margin-right:8px;">📍</span>婚宴地點</h3>
-        <p class="loc-name">台北新板希爾頓酒店</p>
-        <p class="loc-detail">1F 吉祥A廳</p>
-        <p class="loc-addr">新北市板橋區民權路88號</p>
-      </div>
-      <div class="location-col">
-        <h3 class="loc-title"><span style="color:var(--red-accent); margin-right:8px;">🚉</span>交通方式</h3>
-        <ul class="transport-list">
-          <li><strong>捷運：</strong>板南線板橋站2號出口，步行約5分鐘</li>
-          <li><strong>高鐵/台鐵：</strong>板橋站南三門出口，步行約5分鐘</li>
-          <li><strong>停車：</strong>酒店提供地下停車場B3-B5</li>
-        </ul>
-      </div>
+    <!-- 婚宴地點 -->
+    <div style="text-align:center; margin-bottom:40px;">
+      <h3 class="loc-title">
+        <span style="color:var(--red-accent); margin-right:8px;">📍</span>婚宴地點
+      </h3>
+      <p class="loc-name">晶宴會館-桃園館</p>
+      <p class="loc-detail">2F 恆劇場</p>
+      <p class="loc-addr">33076 桃園市桃園區南平路 166 號</p>
     </div>
-    <div class="map-wrap">
-       <iframe title="map" loading="lazy" src="https://www.google.com/maps?q=台北新板希爾頓酒店&output=embed"></iframe>
+  
+    <!-- Google Map -->
+    <div class="map-wrap" style="margin-bottom:30px;">
+      <iframe
+        title="map"
+        loading="lazy"
+        src="https://www.google.com/maps?q=晶宴會館-桃園館&output=embed">
+      </iframe>
+    </div>
+  
+    <!-- 交通方式（置中） -->
+    <div style="text-align:center; max-width:700px; margin:0 auto 40px auto;">
+      <h3 class="loc-title">
+        <span style="color:var(--red-accent); margin-right:8px;">🚉</span>交通方式
+      </h3>
+    </div>  
+
+    <!-- 新增照片 -->
+    <div style="max-width: 900px; margin: 0 auto;">
+      <img
+        src="assets/img/commute.jpg"
+        alt="Venue Photo"
+        style="
+          width:100%;
+          border-radius:4px;
+          box-shadow:0 15px 30px rgba(0,0,0,0.08);
+        ">
     </div>
   </section>
+  
 
   <!-- RSVP -->
   <section class="container fade-up" id="rsvp" style="padding-bottom: 80px;">
