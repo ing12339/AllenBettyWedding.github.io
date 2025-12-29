@@ -676,7 +676,7 @@
      <h2 class="text-center" style="margin-top: 20px; margin-bottom: 20px; color:var(--red-accent);">✨誠摯邀請</h2>
      <p class="text-center" style="margin-bottom: 30px;">煩請於 2026/02/15 前回覆</p>
      <div class="form-container">
-       <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScWCIwZW7IWYH_JNmB_xrjLhef8xCqFZXv-QHmnH0jAgdablw/viewform?embedded=true" height="3200" style="width:100%; max-width:640px; margin:0 auto; display:block;" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+       <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScWCIwZW7IWYH_JNmB_xrjLhef8xCqFZXv-QHmnH0jAgdablw/viewform?embedded=true" height="2800" style="width:100%; max-width:640px; margin:0 auto; display:block;" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
      </div>
   </section>
 
@@ -737,56 +737,82 @@
       }
     }
 
-    // Auto Scroll with Accumulator for Mobile
+    // Auto Scroll (Mobile-friendly, time-based)
     let isAutoScrolling = false;
-    let scrollFrameId;
-    let scrollAccumulator = 0; // 新增：像素累積器
+    let scrollFrameId = null;
+    let lastTs = 0;
+    let scrollAccumulator = 0;
 
-    function autoScrollLoop() {
+    // 速度：每秒捲動幾 px（可自行調整，手機建議 30~60）
+    const SCROLL_SPEED_PX_PER_SEC = 45;
+
+    function getScrollMaxY() {
+      // 用 documentElement 比 body 穩定
+      const doc = document.documentElement;
+      return Math.max(0, doc.scrollHeight - window.innerHeight);
+    }
+
+    function autoScrollLoop(ts) {
       if (!isAutoScrolling) return;
-      
-      // 手機版像素密度高，0.5px 有時會被忽略，改成累積制
-      // 每次 loop 增加 0.6 單位
-      scrollAccumulator += 0.6; 
-      
-      // 當累積超過 1 時，實際捲動 1px，並扣除
-      if (scrollAccumulator >= 1) {
-          window.scrollBy(0, 1);
-          scrollAccumulator -= 1;
+
+      if (!lastTs) lastTs = ts;
+      const dt = (ts - lastTs) / 1000; // seconds
+      lastTs = ts;
+
+      // 累積「應該捲」的距離
+      scrollAccumulator += SCROLL_SPEED_PX_PER_SEC * dt;
+
+      // 一次至少捲 2px（手機較不容易被忽略）
+      let step = Math.floor(scrollAccumulator);
+      if (step >= 2) {
+        window.scrollTo(0, window.scrollY + step);
+        scrollAccumulator -= step;
       }
-      
-      // 邊界檢查：如果滑到底了就停止
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 5) {
-        stopAutoScroll(); 
+
+      // 邊界：快到底就停
+      if (window.scrollY >= getScrollMaxY() - 2) {
+        stopAutoScroll();
         return;
       }
-      
+
       scrollFrameId = requestAnimationFrame(autoScrollLoop);
     }
 
     function startAutoScroll() {
       if (isAutoScrolling) return;
+
       isAutoScrolling = true;
       scrollBtn.classList.add('active');
-      autoScrollLoop();
+
+      lastTs = 0;
+      scrollAccumulator = 0;
+
+      // ✅ 先「推一下」讓手機瀏覽器進入可捲狀態（很常有用）
+      window.scrollTo(0, window.scrollY + 2);
+
+      scrollFrameId = requestAnimationFrame(autoScrollLoop);
     }
 
     function stopAutoScroll() {
       isAutoScrolling = false;
-      cancelAnimationFrame(scrollFrameId);
+      if (scrollFrameId) cancelAnimationFrame(scrollFrameId);
+      scrollFrameId = null;
       scrollBtn.classList.remove('active');
     }
 
     function toggleAutoScrollManually() {
-      if (isAutoScrolling) stopAutoScroll(); else startAutoScroll();
+      if (isAutoScrolling) stopAutoScroll();
+      else startAutoScroll();
     }
 
-    // [修正] 改為監聽 touchmove (手指滑動) 才停止，避免 touchstart (手指觸碰) 誤判
-    ['wheel', 'touchmove', 'mousedown'].forEach(evt => {
-      window.addEventListener(evt, () => { 
-        if(isAutoScrolling) stopAutoScroll(); 
-      });
+    ['wheel', 'touchmove', 'mousedown', 'touchstart'].forEach(evt => {
+      window.addEventListener(evt, (e) => {
+        // touchstart 也算使用者介入 -> 停止
+        if (isAutoScrolling) stopAutoScroll();
+      }, { passive: true });
     });
+
+
 
     // Fade Up
     const observer = new IntersectionObserver((entries) => {
@@ -807,7 +833,7 @@
         'SUMMARY:Allen & Betty Wedding',
         'DTSTART:20260524T120000', // 2026/05/24 12:00
         'DTEND:20260524T150000',   // 結束時間
-        'LOCATION:台北新板希爾頓酒店',
+        'LOCATION:晶宴會館-桃園館',
         'DESCRIPTION:誠摯邀請您參加 Allen & Betty 的婚禮。',
         'END:VEVENT',
         'END:VCALENDAR'
