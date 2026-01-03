@@ -254,10 +254,23 @@
     .story-text-col h3 { font-family: var(--font-en); font-size: 2.5rem; color: var(--accent-color); margin-bottom: 20px; }
     .story-text-col p { font-size: 1rem; color: #666; margin-bottom: 20px; text-align: justify; }
     @media(max-width: 768px) {
-      .story-row, .story-row.reverse { flex-direction: column; gap: 40px; margin-bottom: 80px; }
-      .story-text-col { text-align: center; padding: 0; }
-      .story-text-col p { text-align: center; }
+    .story-row, .story-row.reverse { 
+      flex-direction: column; 
+      gap: 40px; 
+      margin-bottom: 80px; 
     }
+
+    /* ✅ 讓手機版 Story 永遠是：文字在上、照片在下 */
+    .story-row .story-text-col,
+    .story-row.reverse .story-text-col { order: 1; }
+
+    .story-row .story-img-col,
+    .story-row.reverse .story-img-col { order: 2; }
+
+    .story-text-col { text-align: center; padding: 0; }
+    .story-text-col p { text-align: center; }
+  }
+
 
     /* === 5. Timeline Section === */
     .timeline-section { padding: 40px 0 100px 0; }
