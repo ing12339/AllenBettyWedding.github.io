@@ -305,6 +305,11 @@
     .parallax-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); }
     .quote-content { position: relative; z-index: 2; text-align: center; max-width: 700px; padding: 20px; }
     .quote-text { font-family: var(--font-en); font-size: 2rem; font-style: italic; line-height: 1.6; white-space: nowrap;}
+    @media (max-width: 768px) {
+      .quote-text {
+        white-space: normal;   /* 📱 手機恢復自動換行 */
+      }
+    }
     
     /* === 7. Moments Gallery === */
     .moments-section { padding: 100px 0; }
