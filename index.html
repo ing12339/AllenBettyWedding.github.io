@@ -508,7 +508,8 @@
         <h3>The Beginning</h3>
         <p>那是一個陽光普照的午後，我們在網球場上相遇。</p>
         <p>網球在空中劃出的弧線，伴隨著迎面而來的微風，編織成了我們故事的序章。</p>
-        <p>從那刻起，生活中的大小事因為有你分享而變得不平凡。我們一起走過了四季，也更加確定，未來的每一步都想與你同行。</p>
+        <p>從那刻起，生活中的大小事因為有你分享而變得不平凡。</p>
+        <p>我們一起走過了四季，也更加確定，未來的每一步都想與你同行。</p>
       </div>
     </div>
     <div class="story-row reverse fade-up">
@@ -868,15 +869,32 @@
 
     // [NEW] Download ICS Function
     function downloadICS() {
+      // 1. 偵測是否為 LINE
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const isLine = (userAgent.indexOf("Line") > -1);
+
+      // 2. 如果是 LINE，跳出警示
+      if (isLine) {
+        alert("⚠️ LINE 瀏覽器不支援直接下載行事曆檔案。\n\n請點擊「⋮」或「分享」圖示\n選擇「使用預設瀏覽器開啟」\n即可正常加入行事曆！");
+        return;
+      }
+
+      // 3. 如果不是 LINE (是 Safari/Chrome)，執行原本的下載邏輯
+      const eventTitle = "崇華 & 舒婷 Wedding";
+      const eventLocation = "晶宴會館-桃園館";
+      const eventDetails = "誠摯邀請您參加 崇華 & 舒婷 的婚禮。";
+      const startDate = "20260524T120000"; 
+      const endDate = "20260524T150000";
+
       const event = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
         'BEGIN:VEVENT',
-        'SUMMARY:Allen & Betty Wedding',
-        'DTSTART:20260524T120000', // 2026/05/24 12:00
-        'DTEND:20260524T150000',   // 結束時間
-        'LOCATION:晶宴會館-桃園館',
-        'DESCRIPTION:誠摯邀請您參加 Allen & Betty 的婚禮。',
+        'DTSTART;TZID=Asia/Taipei:' + startDate,
+        'DTEND;TZID=Asia/Taipei:' + endDate,
+        'SUMMARY:' + eventTitle,
+        'LOCATION:' + eventLocation,
+        'DESCRIPTION:' + eventDetails,
         'END:VEVENT',
         'END:VCALENDAR'
       ].join('\n');
