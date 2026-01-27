@@ -747,7 +747,7 @@
   <!-- RSVP -->
   <section class="container fade-up" id="rsvp" style="padding-bottom: 80px;">
      <h2 class="text-center" style="margin-top: 20px; margin-bottom: 20px; color:var(--red-accent);">✨誠摯邀請</h2>
-     <p class="text-center" style="margin-bottom: 30px;">煩請於 2026/02/15 前回覆</p>
+     <p class="text-center" style="margin-bottom: 30px;">煩請於 2026/03/01 前回覆</p>
      <div class="form-container">
        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScWCIwZW7IWYH_JNmB_xrjLhef8xCqFZXv-QHmnH0jAgdablw/viewform?embedded=true" height="2800" style="width:100%; max-width:640px; margin:0 auto; display:block;" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
      </div>
@@ -772,7 +772,7 @@
       <button class="modal-btn" onclick="closeLineModal()">我知道了</button>
     </div>
   </div>
-  
+
   <script>
     const envelopeWrapper = document.querySelector('.modern-env');
     const overlay = document.getElementById('envelope-overlay');
@@ -922,8 +922,10 @@
 
     // [NEW] Download ICS Function
     // [NEW] 關閉彈窗
+    // [NEW] 關閉彈窗
     function closeLineModal() {
-      document.getElementById('line-alert-modal').classList.remove('active');
+      // 修正點：這裡原本寫 line-alert-modal，要改成 line-modal
+      document.getElementById('line-modal').classList.remove('active');
     }
 
     // [MODIFIED] 修改後的下載函式
@@ -932,9 +934,10 @@
       const userAgent = navigator.userAgent || navigator.vendor || window.opera;
       const isLine = (userAgent.indexOf("Line") > -1);
 
-      // 2. 如果是 LINE，顯示自製彈窗 (不會有網址標題)
+      // 2. 如果是 LINE，顯示自製彈窗
       if (isLine) {
-        document.getElementById('line-alert-modal').classList.add('active');
+        // 修正點：這裡原本寫 line-alert-modal，要改成 line-modal
+        document.getElementById('line-modal').classList.add('active');
         return;
       }
 
