@@ -181,22 +181,24 @@
     /* === 2. Hero 主視覺 === */
     .hero {
       position: relative; height: 100vh; width: 100%;
-      display: flex; align-items: center; justify-content: center; overflow: hidden; color: #fff;
+      display: flex; align-items: center; justify-content: center; overflow: hidden; color: #F5F2ED;
     }
     .hero-bg {
       position: absolute; inset: 0;
-      background-image: url('assets/img/dsc_1780.webp');
+      background-image: url('assets/img/dsc_1811.webp');
       background-size: cover; background-position: center;
-      filter: brightness(0.6); transform: scale(1.1); transition: transform 10s ease; z-index: 0;
+      filter: brightness(1); transform: scale(1.1); transition: transform 10s ease; z-index: 0;
     }
     .hero.active .hero-bg { transform: scale(1); }
     .hero-content {
       position: relative; z-index: 2; text-align: center; opacity: 0;
       transform: translateY(30px); transition: opacity 1.5s ease, transform 1.5s ease;
     }
+    
     .hero.active .hero-content { opacity: 1; transform: translateY(0); }
-    .hero-title { font-size: clamp(3.5rem, 8vw, 6rem); font-family: var(--font-en); line-height: 1.1; margin-bottom: 20px; text-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+    .hero-title { transform: translateY(90px); font-size: clamp(3.5rem, 8vw, 6rem); font-family: var(--font-en); line-height: 1.1; margin-bottom: 20px; text-shadow: 0 4px 15px rgba(0,0,0,0.5); }
     .hero-subtitle {
+      transform: translateY(90px);
       font-family: var(--font-en);
       font-style: italic;
       font-size: 3.1rem;
@@ -205,8 +207,23 @@
       margin-bottom: 22px;
       opacity: 0.85;
     }
-    .hero-date-line { font-size: 1.2rem; letter-spacing: 0.3em; font-family: var(--font-en); text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.7); padding-top: 20px; display: inline-block; margin-top: 10px; }
-
+    .hero-subtitle::before {
+      content: "";
+      position: absolute;
+      inset: -40px -80px; /* 包住文字但留呼吸感 */
+      background: rgba(0, 0, 0, 0.25);
+      filter: blur(30px);
+      z-index: -1;
+    }
+    .hero-date-line {transform: translateY(90px); font-size: 1.2rem; letter-spacing: 0.3em; font-family: var(--font-en); text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.7); padding-top: 20px; display: inline-block; margin-top: 10px; }
+    .hero-date-line::before {
+      content: "";
+      position: absolute;
+      inset: -40px -80px; /* 包住文字但留呼吸感 */
+      background: rgba(0, 0, 0, 0.25);
+      filter: blur(30px);
+      z-index: -1;
+    }
     /* === 3. Intro Section === */
     .intro-section { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 0; }
     
@@ -467,8 +484,8 @@
     <div class="modern-env" onclick="openEnvelope()">
       <div class="env-back"></div>
       <div class="env-card">
-        <div class="env-card-text">崇華 & 舒婷</div>
-        <div style="font-size:0.8rem; letter-spacing:2px; color:#888; margin-top:5px;">WEDDING</div>
+        <div class="env-card-text">崇華 ❤️ 舒婷</div>
+        <div style="font-size:1.5rem; letter-spacing:2px; color:#888; margin-top:5px;">我們要結婚啦</div>
       </div>
       <div class="env-front"></div>
       <div class="env-flap"></div>
@@ -651,10 +668,10 @@
           <img src="assets/img/dsc_1717.webp" alt="Moment 1">
         </div>
         <div class="moment-item">
-          <img src="assets/img/dsc_1811.webp" alt="Moment 2">
+          <img src="assets/img/dsc_1812.webp" alt="Moment 2">
         </div>
         <div class="moment-item">
-          <img src="assets/img/dsc_1897.webp" alt="Moment 3">
+          <img src="assets/img/dsc_1881.webp" alt="Moment 3">
         </div>
         <div class="moment-item">
           <img src="assets/img/dsc_1749.webp" alt="Moment 4">
