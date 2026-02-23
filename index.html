@@ -776,8 +776,14 @@
      <h2 class="text-center" style="margin-top: 20px; margin-bottom: 20px; color:var(--red-accent);">✨誠摯邀請</h2>
      <p class="text-center" style="margin-bottom: 30px;">煩請於 2026/03/06 前回覆</p>
      <div class="form-container">
-       <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScWCIwZW7IWYH_JNmB_xrjLhef8xCqFZXv-QHmnH0jAgdablw/viewform?embedded=true" height="2400" style="width:100%; max-width:640px; margin:0 auto; display:block;" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-     </div>
+      <iframe 
+        id="rsvpForm"
+        src="https://docs.google.com/forms/d/e/1FAIpQLScWCIwZW7IWYH_JNmB_xrjLhef8xCqFZXv-QHmnH0jAgdablw/viewform?embedded=true"
+        height="2000"
+        style="width:100%; max-width:640px; margin:0 auto; display:block;"
+        frameborder="0">
+      </iframe>
+    </div>
   </section>
 
   <footer>
@@ -995,6 +1001,23 @@
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+    }
+    // ===== RSVP Auto Scroll After Submit =====
+    const rsvpIframe = document.getElementById("rsvpForm");
+    let rsvpLoadCount = 0;
+
+    if (rsvpIframe) {
+      rsvpIframe.addEventListener("load", function () {
+        rsvpLoadCount++;
+
+        // 第一次 load 是表單初始化，不動
+        if (rsvpLoadCount > 1) {
+          document.getElementById("rsvp").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
+      });
     }
   </script>
 </body>
